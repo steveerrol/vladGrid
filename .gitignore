@@ -1,0 +1,508 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# PyInstaller
+#  Usually these files are written by a python script from a template
+#  before PyInstaller builds the exe, so as to inject date/other infos into it.
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+
+# Translations
+*.mo
+*.pot
+
+# Django stuff:
+*.log
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+
+# Flask stuff:
+instance/
+.webassets-cache
+
+# Scrapy stuff:
+.scrapy
+
+# Sphinx documentation
+docs/_build/
+
+# PyBuilder
+target/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# IPython
+profile_default/
+ipython_config.py
+
+# pyenv
+.python-version
+
+# pipenv
+#   According to pypa/pipenv#598, it is recommended to include Pipfile.lock in version control.
+#   However, in case of collaboration, if having platform-specific dependencies or dependencies
+#   having no cross-platform support, pipenv may install dependencies that don't work, or not
+#   install all needed dependencies.
+#Pipfile.lock
+
+# PEP 582; used by e.g. github.com/David-OConnor/pyflow
+__pypackages__/
+
+# Celery stuff
+celerybeat-schedule
+celerybeat.pid
+
+# SageMath parsed files
+*.sage.py
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Spyder project settings
+.spyderproject
+.spyproject
+
+# Rope project settings
+.ropeproject
+
+# mkdocs documentation
+/site
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Pyre type checker
+.pyre/
+
+# Trading Bot Specific Files
+# =========================
+
+# Environment and Configuration
+.env
+.env.local
+.env.production
+.env.staging
+config.ini
+settings.json
+
+# Logs
+*.log
+logs/
+trading_bot.log
+bot.log
+error.log
+debug.log
+
+# Trading Data
+*.csv
+*.json
+trading_data/
+market_data/
+positions.json
+account_info.json
+
+# IBKR Specific
+*.ibkr
+ibkr_data/
+tws_data/
+gateway_data/
+
+# Contract Files
+selected_contracts.txt
+contracts.json
+contract_data/
+
+# Temporary Files
+temp/
+tmp/
+*.tmp
+*.temp
+
+# Backup Files
+*.bak
+*.backup
+*~
+~$*
+
+# OS Generated Files
+# ==================
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+*.stackdump
+[Dd]esktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+*.lnk
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+# Linux
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+.nfs*
+
+# IDE and Editor Files
+# ====================
+
+# Visual Studio Code
+.vscode/
+*.code-workspace
+
+# PyCharm
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# Vim
+*.swp
+*.swo
+*~
+
+# Emacs
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+*.elc
+auto-save-list
+tramp
+.\#*
+
+# Atom
+.ftpconfig
+.sftpconfig
+
+# Trading Bot Specific Exclusions
+# ===============================
+
+# Sensitive Trading Data
+account_balance.json
+portfolio.json
+trades.json
+orders.json
+positions.json
+
+# API Keys and Secrets
+api_keys.json
+secrets.json
+credentials.json
+*.key
+*.pem
+*.p12
+*.pfx
+
+# Database Files
+*.db
+*.sqlite
+*.sqlite3
+
+# Cache Files
+.cache/
+cache/
+*.cache
+
+# Test Output
+test_output/
+test_results/
+test_logs/
+
+# Documentation Build
+docs/_build/
+site/
+
+# Jupyter Notebooks (if any)
+*.ipynb
+
+# Trading Strategy Files (if sensitive)
+strategy_*.py
+strategy_*.json
+strategy_*.txt
+
+# Performance Data
+performance.json
+metrics.json
+stats.json
+
+# Error Dumps
+*.dmp
+*.crash
+error_dumps/
+
+# Memory Dumps
+*.hprof
+*.heap
+
+# Trading Bot Runtime Files
+# =========================
+
+# Bot State
+bot_state.json
+state.json
+session.json
+
+# Market Data Cache
+market_cache/
+price_cache/
+data_cache/
+
+# Position Tracking
+position_tracker.json
+trade_history.json
+
+# Risk Management
+risk_data.json
+risk_logs/
+
+# Alerts and Notifications
+alerts.json
+notifications.json
+
+# Webhook Data
+webhook_logs/
+webhook_data/
+
+# Trading Reports
+reports/
+trading_reports/
+daily_reports/
+monthly_reports/
+
+# Backup and Archive
+backup/
+archive/
+old_versions/
+
+# Development and Testing
+# =======================
+
+# Test Data
+test_data/
+mock_data/
+sample_data/
+
+# Development Logs
+dev.log
+development.log
+
+# Debug Files
+debug/
+debug_output/
+*.debug
+
+# Profiling
+*.prof
+profile_data/
+
+# Coverage Reports
+htmlcov/
+.coverage
+coverage.xml
+
+# Pytest
+.pytest_cache/
+
+# MyPy
+.mypy_cache/
+
+# Black
+.black/
+
+# Flake8
+.flake8
+
+# Trading Bot Specific Patterns
+# =============================
+
+# Contract Selection
+contract_selection.log
+contract_*.log
+
+# Setup and Installation
+setup.log
+install.log
+installation.log
+
+# Quick Setup
+quick_setup.log
+setup_wizard.log
+
+# Bot Restart
+restart.log
+restart_*.log
+
+# Diagnostics
+diagnostic_*.log
+diagnose_*.log
+
+# Market Data
+market_data_*.log
+bid_ask_*.log
+price_*.log
+
+# Trading Operations
+trading_*.log
+buy_*.log
+sell_*.log
+order_*.log
+
+# Position Management
+position_*.log
+close_*.log
+portfolio_*.log
+
+# Webhook Operations
+webhook_*.log
+alert_*.log
+signal_*.log
+
+# Error Handling
+error_*.log
+exception_*.log
+crash_*.log
+
+# Performance Monitoring
+performance_*.log
+metrics_*.log
+stats_*.log
+
+# Security and Authentication
+auth_*.log
+security_*.log
+login_*.log
+
+# Network and Connection
+connection_*.log
+network_*.log
+ibkr_*.log
+
+# Configuration Management
+config_*.log
+settings_*.log
+env_*.log
+
+# File Management
+file_*.log
+backup_*.log
+cleanup_*.log
+
+# System Monitoring
+system_*.log
+monitor_*.log
+health_*.log
+
+# Trading Bot Specific Exclusions
+# ===============================
+
+# Keep important files
+!README.md
+!requirements.txt
+!config.py
+!main.py
+!trading_bot.py
+!models.py
+!run_bot.py
+!quick_setup.py
+!setup_bot.py
+!select_contracts.py
+!contract_selector.py
+!install.bat
+!env_template.txt
+!*.md
+!*.py
+!*.bat
+!*.txt
+!*.json
+!*.yml
+!*.yaml
+
+# But exclude sensitive ones
+.env
+*.log
+trading_bot.log
+selected_contracts.txt

@@ -1,0 +1,17 @@
+# Copy this file to .env and fill in your IBKR credentials
+
+# IBKR Configuration
+IBKR_ACCOUNT_ID=your_account_id_here
+IBKR_HOST=127.0.0.1
+IBKR_PORT=7497
+IBKR_CLIENT_ID=1
+
+# Trading Configuration (ES Mar25 contract)
+CONTRACT_SYMBOL=ES
+CONTRACT_MONTH=20250321
+CONTRACT_EXCHANGE=CME
+CONTRACT_CURRENCY=USD
+
+# Logging Configuration
+LOG_LEVEL=INFO
+LOG_FILE=trading_bot.log

@@ -1,0 +1,35 @@
+# IBKR Configuration
+IBKR_ACCOUNT_ID=your_account_id_here
+IBKR_HOST=127.0.0.1
+IBKR_PORT=7497
+IBKR_CLIENT_ID=1
+
+# Trading Configuration - ES DEC 2025
+CONTRACT_SYMBOL=ES
+CONTRACT_MONTH=20251219
+CONTRACT_EXCHANGE=CME
+CONTRACT_CURRENCY=USD
+
+# Logging Configuration
+LOG_LEVEL=INFO
+LOG_FILE=trading_bot.log
+
+# Order Configuration
+USE_LIMIT_ORDERS=false
+BID_ASK_OFFSET=0.0
+
+# Webhook URLs:
+# Market Orders:
+#   Buy:  https://94d501344003.ngrok-free.app/ML-3-4/buy
+#   Sell: https://94d501344003.ngrok-free.app/ML-2-3-4/sell
+
+# Limit Orders:
+#   Buy Limit:  https://94d501344003.ngrok-free.app/ML-3-4/buy-limit
+#   Sell Limit: https://94d501344003.ngrok-free.app/ML-2-3-4/sell-limit
+
+# Custom Price Examples:
+# POST /ML-3-4/buy-limit
+# {"price": 6700.0}
+#
+# POST /ML-2-3-4/sell-limit  
+# {"price": 6695.0}
