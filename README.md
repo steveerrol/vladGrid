@@ -75,7 +75,7 @@ This trading bot is specifically designed for ES DEC 2025 futures contracts and 
 
 ### 1. Clone the Repository
 ```bash
-git clone <repository-url>
+git clone https://github.com/vladDev316/AI-Powered-Future-Trading-Bot-on-IBKR-Strategy-focusing-.git
 cd "LuxAlgo trading bot"
 ```
 
@@ -528,7 +528,6 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 - [ ] Start bot: `python run_bot.py`
 - [ ] Test connection: `curl http://localhost:8000/status`
 - [ ] Configure TradingView webhooks
-- [ ] Test trading: `python test_sell_fix.py`
 
 ## 🚀 Advanced Features
 
@@ -548,7 +547,5 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 - Maximum drawdown controls
 
 ---
-
-**⚠️ Disclaimer**: This software is for educational and research purposes only. Trading futures involves substantial risk of loss and is not suitable for all investors. Past performance is not indicative of future results. Always test thoroughly with paper trading before using real money.
 
 **🎯 Happy Trading!** 🚀
