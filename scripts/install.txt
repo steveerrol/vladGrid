@@ -1,0 +1,15 @@
+0. install ngrok: https://dashboard.ngrok.com/get-started/setup/macos
+brew install ngrok
+https://dashboard.ngrok.com/get-started/
+
+1. install libs
+pip install -r requirements.txt
+
+2.copy env
+cp env_template.txt .env
+
+3. start IBKR app (TWS), Verify the port actually listens
+nc -vz 127.0.0.1 7497
+
+4. forward to ngrok
+ngrok http http://localhost:8000
