@@ -6,6 +6,8 @@ from datetime import datetime
 import os
 from dotenv import load_dotenv
 from trading_bot import TradingBot
+from spx_option_trader import SPXOptionTrader
+from spy_stock_trader import SPYStockTrader
 from models import AlertRequest
 from config import Config
 
@@ -26,28 +28,48 @@ logger = logging.getLogger(__name__)
 
 app = FastAPI(title="ES DEC 2025 CME Trading Bot", version="1.0.0")
 
-# Initialize trading bot
+# Initialize trading bots
 trading_bot = None
+spx_option_trader = None
+spy_stock_trader = None
 
 @app.on_event("startup")
 async def startup_event():
-    """Initialize the trading bot on startup"""
-    global trading_bot
+    """Initialize the trading bots on startup"""
+    global trading_bot, spx_option_trader, spy_stock_trader
     try:
+        # Initialize ES futures trading bot
         trading_bot = TradingBot()
         await trading_bot.connect()
-        logger.info("Trading bot initialized and connected to IBKR")
+        logger.info("ES futures trading bot initialized and connected to IBKR")
+        
+        # Initialize SPX option trader
+        spx_option_trader = SPXOptionTrader()
+        await spx_option_trader.connect()
+        logger.info("SPX option trader initialized and connected to IBKR")
+        
+        # Initialize SPY stock trader
+        spy_stock_trader = SPYStockTrader()
+        await spy_stock_trader.connect()
+        logger.info("SPY stock trader initialized and connected to IBKR")
+        
     except Exception as e:
-        logger.error(f"Failed to initialize trading bot: {e}")
+        logger.error(f"Failed to initialize trading bots: {e}")
         raise
 
 @app.on_event("shutdown")
 async def shutdown_event():
     """Clean up on shutdown"""
-    global trading_bot
+    global trading_bot, spx_option_trader, spy_stock_trader
     if trading_bot:
         await trading_bot.disconnect()
-        logger.info("Trading bot disconnected")
+        logger.info("ES futures trading bot disconnected")
+    if spx_option_trader:
+        await spx_option_trader.disconnect()
+        logger.info("SPX option trader disconnected")
+    if spy_stock_trader:
+        await spy_stock_trader.disconnect()
+        logger.info("SPY stock trader disconnected")
 
 @app.get("/")
 async def root():
@@ -326,6 +348,148 @@ async def sell_limit_alert(request: Request):
         
     except Exception as e:
         logger.error(f"Error processing sell limit alert: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+# SPX Option Trading Endpoints
+@app.post("/option-buy")
+async def option_buy_alert(request: Request):
+    """Handle SPX option buy alert - buy 1 SPXW option contract"""
+    try:
+        logger.info("="*50)
+        logger.info("SPX OPTION BUY ALERT RECEIVED")
+        logger.info("="*50)
+        
+        if not spx_option_trader:
+            logger.error("SPX option trader not initialized")
+            raise HTTPException(status_code=500, detail="SPX option trader not initialized")
+        
+        if not spx_option_trader.is_connected():
+            logger.error("SPX option trader not connected to IBKR")
+            raise HTTPException(status_code=500, detail="SPX option trader not connected to IBKR")
+        
+        logger.info("SPX option trader is connected and ready")
+        
+        # Buy 1 SPX option contract at market price
+        result = await spx_option_trader.buy_option(1)
+        
+        logger.info(f"SPX option buy alert processing complete: {result}")
+        logger.info("="*50)
+        
+        return {
+            "message": "SPX option buy alert processed successfully",
+            "result": result.dict(),
+            "timestamp": datetime.now().isoformat()
+        }
+        
+    except Exception as e:
+        logger.error(f"Error processing SPX option buy alert: {e}")
+        logger.error("="*50)
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.post("/option-sell")
+async def option_sell_alert(request: Request):
+    """Handle SPX option sell alert - close all SPX option positions"""
+    try:
+        logger.info("="*50)
+        logger.info("SPX OPTION SELL ALERT RECEIVED")
+        logger.info("="*50)
+        
+        if not spx_option_trader:
+            logger.error("SPX option trader not initialized")
+            raise HTTPException(status_code=500, detail="SPX option trader not initialized")
+        
+        if not spx_option_trader.is_connected():
+            logger.error("SPX option trader not connected to IBKR")
+            raise HTTPException(status_code=500, detail="SPX option trader not connected to IBKR")
+        
+        logger.info("SPX option trader is connected and ready")
+        
+        # Close all SPX option positions
+        result = await spx_option_trader.sell_all_option_positions()
+        
+        logger.info(f"SPX option sell alert processing complete: {result}")
+        logger.info("="*50)
+        
+        return {
+            "message": "SPX option sell alert processed successfully",
+            "result": result,
+            "timestamp": datetime.now().isoformat()
+        }
+        
+    except Exception as e:
+        logger.error(f"Error processing SPX option sell alert: {e}")
+        logger.error("="*50)
+        raise HTTPException(status_code=500, detail=str(e))
+
+# SPY Stock Trading Endpoints
+@app.post("/stock-buy")
+async def stock_buy_alert(request: Request):
+    """Handle SPY stock buy alert - buy 5 SPY shares"""
+    try:
+        logger.info("="*50)
+        logger.info("SPY STOCK BUY ALERT RECEIVED")
+        logger.info("="*50)
+        
+        if not spy_stock_trader:
+            logger.error("SPY stock trader not initialized")
+            raise HTTPException(status_code=500, detail="SPY stock trader not initialized")
+        
+        if not spy_stock_trader.is_connected():
+            logger.error("SPY stock trader not connected to IBKR")
+            raise HTTPException(status_code=500, detail="SPY stock trader not connected to IBKR")
+        
+        logger.info("SPY stock trader is connected and ready")
+        
+        # Buy 5 SPY shares at market price
+        result = await spy_stock_trader.buy_stock(5)
+        
+        logger.info(f"SPY stock buy alert processing complete: {result}")
+        logger.info("="*50)
+        
+        return {
+            "message": "SPY stock buy alert processed successfully",
+            "result": result.dict(),
+            "timestamp": datetime.now().isoformat()
+        }
+        
+    except Exception as e:
+        logger.error(f"Error processing SPY stock buy alert: {e}")
+        logger.error("="*50)
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.post("/stock-sell")
+async def stock_sell_alert(request: Request):
+    """Handle SPY stock sell alert - close all SPY stock positions"""
+    try:
+        logger.info("="*50)
+        logger.info("SPY STOCK SELL ALERT RECEIVED")
+        logger.info("="*50)
+        
+        if not spy_stock_trader:
+            logger.error("SPY stock trader not initialized")
+            raise HTTPException(status_code=500, detail="SPY stock trader not initialized")
+        
+        if not spy_stock_trader.is_connected():
+            logger.error("SPY stock trader not connected to IBKR")
+            raise HTTPException(status_code=500, detail="SPY stock trader not connected to IBKR")
+        
+        logger.info("SPY stock trader is connected and ready")
+        
+        # Close all SPY stock positions
+        result = await spy_stock_trader.sell_all_stock_positions()
+        
+        logger.info(f"SPY stock sell alert processing complete: {result}")
+        logger.info("="*50)
+        
+        return {
+            "message": "SPY stock sell alert processed successfully",
+            "result": result,
+            "timestamp": datetime.now().isoformat()
+        }
+        
+    except Exception as e:
+        logger.error(f"Error processing SPY stock sell alert: {e}")
+        logger.error("="*50)
         raise HTTPException(status_code=500, detail=str(e))
 
 if __name__ == "__main__":
