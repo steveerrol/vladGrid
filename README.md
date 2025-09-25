@@ -1,6 +1,6 @@
-# 🎯 ES DEC 2025 CME Trading Bot
+# 🎯 Multi-Asset Trading Bot
 
-A sophisticated automated trading bot for ES (E-mini S&P 500) futures contracts on the CME exchange, designed to work with Interactive Brokers (IBKR) and TradingView webhooks.
+A sophisticated automated trading bot for ES (E-mini S&P 500) futures, SPX options, and SPY stock trading, designed to work with Interactive Brokers (IBKR) and TradingView webhooks.
 
 ## 📋 Table of Contents
 
@@ -20,8 +20,11 @@ A sophisticated automated trading bot for ES (E-mini S&P 500) futures contracts 
 
 ## 🎯 Overview
 
-This trading bot is specifically designed for ES DEC 2025 futures contracts and provides:
+This multi-asset trading bot supports:
 
+- **ES DEC 2025 Futures**: E-mini S&P 500 futures contracts on CME
+- **SPX Options**: SPXW options trading (10 OCT 2025 CALL 6675)
+- **SPY Stock**: SPY ETF stock trading
 - **Automated Trading**: Executes buy/sell orders based on TradingView webhook alerts
 - **Market Order Execution**: Uses market orders for immediate execution at current market prices
 - **Position Management**: Automatically closes all positions when sell alerts are received
@@ -33,6 +36,8 @@ This trading bot is specifically designed for ES DEC 2025 futures contracts and 
 
 ### Core Trading Features
 - ✅ **ES DEC 2025 Futures Trading** - Specialized for ES contracts expiring December 2025
+- ✅ **SPX Options Trading** - SPXW 10 OCT 2025 CALL 6675 options trading
+- ✅ **SPY Stock Trading** - SPY ETF stock trading
 - ✅ **Market Order Execution** - Immediate execution at current market prices
 - ✅ **Position Management** - Automatic detection and closing of all positions
 - ✅ **Real-time Market Data** - Live bid/ask price monitoring
@@ -47,8 +52,20 @@ This trading bot is specifically designed for ES DEC 2025 futures contracts and 
 - ✅ **Contract Selection** - Interactive contract selection tool
 
 ### Trading Strategy
-- ✅ **Buy Alert** → Buy 3 contracts at market price
-- ✅ **Sell Alert** → Close all positions at market price
+
+#### ES Futures Trading
+- ✅ **Buy Alert** → Buy 3 ES contracts at market price
+- ✅ **Sell Alert** → Close all ES positions at market price
+
+#### SPX Options Trading
+- ✅ **Buy Alert** → Buy 1 SPXW option contract at market price
+- ✅ **Sell Alert** → Close all SPX option positions at market price
+
+#### SPY Stock Trading
+- ✅ **Buy Alert** → Buy 5 SPY shares at market price
+- ✅ **Sell Alert** → Close all SPY stock positions at market price
+
+#### General Features
 - ✅ **Immediate Execution** - No waiting for specific prices
 - ✅ **Guaranteed Fills** - Market orders always execute
 
@@ -63,8 +80,8 @@ This trading bot is specifically designed for ES DEC 2025 futures contracts and 
 1. **Account**: Active Interactive Brokers account
 2. **TWS/Gateway**: Running TWS or IB Gateway
 3. **API Access**: Enable API connections in TWS/Gateway
-4. **Market Data**: Subscribe to ES futures market data
-5. **Permissions**: Ensure trading permissions for futures
+4. **Market Data**: Subscribe to ES futures, SPX options, and SPY stock market data
+5. **Permissions**: Ensure trading permissions for futures, options, and stocks
 
 ### TradingView Setup (Optional)
 1. **Account**: TradingView Pro or higher account
@@ -196,10 +213,23 @@ curl http://localhost:8000/
 
 ### Trading Endpoints
 
+#### ES Futures Trading
 | Endpoint | Method | Description | TradingView URL |
 |----------|--------|-------------|-----------------|
-| `/ML-3-4/buy` | POST | Buy 3 contracts | `https://94d501344003.ngrok-free.app/ML-3-4/buy` |
-| `/ML-2-3-4/sell` | POST | Close all positions | `https://94d501344003.ngrok-free.app/ML-2-3-4/sell` |
+| `/ML-3-4/buy` | POST | Buy 3 ES contracts | `https://e0e13c45218c.ngrok-free.app/ML-3-4/buy` |
+| `/ML-2-3-4/sell` | POST | Close all ES positions | `https://e0e13c45218c.ngrok-free.app/ML-2-3-4/sell` |
+
+#### SPX Options Trading
+| Endpoint | Method | Description | TradingView URL |
+|----------|--------|-------------|-----------------|
+| `/option-buy` | POST | Buy 1 SPXW option | `https://e0e13c45218c.ngrok-free.app/option-buy` |
+| `/option-sell` | POST | Close all SPX options | `https://e0e13c45218c.ngrok-free.app/option-sell` |
+
+#### SPY Stock Trading
+| Endpoint | Method | Description | TradingView URL |
+|----------|--------|-------------|-----------------|
+| `/stock-buy` | POST | Buy 5 SPY shares | `https://e0e13c45218c.ngrok-free.app/stock-buy` |
+| `/stock-sell` | POST | Close all SPY positions | `https://e0e13c45218c.ngrok-free.app/stock-sell` |
 
 ### Advanced Endpoints
 
@@ -220,14 +250,46 @@ curl http://localhost:8000/status
 # Get market prices
 curl http://localhost:8000/bid-ask
 
-# Buy 3 contracts
+# ES Futures Trading
 curl -X POST http://localhost:8000/ML-3-4/buy
-
-# Close all positions
 curl -X POST http://localhost:8000/ML-2-3-4/sell
+
+# SPX Options Trading
+curl -X POST http://localhost:8000/option-buy
+curl -X POST http://localhost:8000/option-sell
+
+# SPY Stock Trading
+curl -X POST http://localhost:8000/stock-buy
+curl -X POST http://localhost:8000/stock-sell
 ```
 
-## 🎯 Trading Logic
+## 🎯 Multi-Asset Trading
+
+### Asset-Specific Trading
+
+#### ES DEC 2025 Futures
+- **Symbol**: ES
+- **Exchange**: CME
+- **Contract Size**: 3 contracts per buy alert
+- **Order Type**: Market orders for immediate execution
+- **Position Management**: Closes all ES positions on sell alert
+
+#### SPX Options (SPXW)
+- **Symbol**: SPXW
+- **Contract**: 10 OCT 2025 CALL 6675
+- **Exchange**: SMART
+- **Contract Size**: 1 contract per buy alert
+- **Order Type**: Market orders for immediate execution
+- **Position Management**: Closes all SPX option positions on sell alert
+
+#### SPY Stock
+- **Symbol**: SPY
+- **Exchange**: SMART
+- **Share Size**: 5 shares per buy alert
+- **Order Type**: Market orders for immediate execution
+- **Position Management**: Closes all SPY stock positions on sell alert
+
+### Trading Logic
 
 ### Market Order Strategy
 
@@ -266,35 +328,87 @@ The bot uses **market orders** for immediate execution:
 ### TradingView Setup
 
 1. **Create Alert** in TradingView
-2. **Set Webhook URL**:
-   - Buy: `https://94d501344003.ngrok-free.app/ML-3-4/buy`
-   - Sell: `https://94d501344003.ngrok-free.app/ML-2-3-4/sell`
+2. **Set Webhook URLs**:
+
+   **ES Futures Trading:**
+   - Buy: `https://e0e13c45218c.ngrok-free.app/ML-3-4/buy`
+   - Sell: `https://e0e13c45218c.ngrok-free.app/ML-2-3-4/sell`
+
+   **SPX Options Trading:**
+   - Buy: `https://e0e13c45218c.ngrok-free.app/option-buy`
+   - Sell: `https://e0e13c45218c.ngrok-free.app/option-sell`
+
+   **SPY Stock Trading:**
+   - Buy: `https://e0e13c45218c.ngrok-free.app/stock-buy`
+   - Sell: `https://e0e13c45218c.ngrok-free.app/stock-sell`
+
 3. **Configure Alert**:
    - Message: Any text (ignored by bot)
-   - Webhook URL: Use the URLs above
+   - Webhook URL: Use the appropriate URL above
    - HTTP Method: POST
 
 ### Webhook Examples
 
-#### Buy Alert
+#### ES Futures Trading
 ```json
-POST https://94d501344003.ngrok-free.app/ML-3-4/buy
+# Buy Alert
+POST https://e0e13c45218c.ngrok-free.app/ML-3-4/buy
 Content-Type: application/json
 
 {
-  "message": "Buy signal detected",
+  "message": "ES Buy signal detected",
   "price": 6700.0
+}
+
+# Sell Alert
+POST https://e0e13c45218c.ngrok-free.app/ML-2-3-4/sell
+Content-Type: application/json
+
+{
+  "message": "ES Sell signal detected",
+  "price": 6695.0
 }
 ```
 
-#### Sell Alert
+#### SPX Options Trading
 ```json
-POST https://94d501344003.ngrok-free.app/ML-2-3-4/sell
+# Buy Alert
+POST https://e0e13c45218c.ngrok-free.app/option-buy
 Content-Type: application/json
 
 {
-  "message": "Sell signal detected",
-  "price": 6695.0
+  "message": "SPX Option Buy signal detected",
+  "price": 15.50
+}
+
+# Sell Alert
+POST https://e0e13c45218c.ngrok-free.app/option-sell
+Content-Type: application/json
+
+{
+  "message": "SPX Option Sell signal detected",
+  "price": 18.25
+}
+```
+
+#### SPY Stock Trading
+```json
+# Buy Alert
+POST https://e0e13c45218c.ngrok-free.app/stock-buy
+Content-Type: application/json
+
+{
+  "message": "SPY Stock Buy signal detected",
+  "price": 450.25
+}
+
+# Sell Alert
+POST https://e0e13c45218c.ngrok-free.app/stock-sell
+Content-Type: application/json
+
+{
+  "message": "SPY Stock Sell signal detected",
+  "price": 448.75
 }
 ```
 
@@ -389,7 +503,9 @@ The bot creates detailed logs in `trading_bot.log`:
 ```
 LuxAlgo trading bot/
 ├── 📄 main.py                    # FastAPI application
-├── 📄 trading_bot.py             # Core trading logic
+├── 📄 trading_bot.py             # ES futures trading logic
+├── 📄 spx_option_trader.py       # SPX options trading logic
+├── 📄 spy_stock_trader.py        # SPY stock trading logic
 ├── 📄 config.py                  # Configuration settings
 ├── 📄 models.py                  # Data models
 ├── 📄 requirements.txt           # Python dependencies
@@ -438,9 +554,16 @@ python select_contracts.py
 
 1. **Start the bot**
 2. **Check status**: `curl http://localhost:8000/status`
-3. **Test buy alert**: `curl -X POST http://localhost:8000/ML-3-4/buy`
-4. **Test sell alert**: `curl -X POST http://localhost:8000/ML-2-3-4/sell`
-5. **Verify positions**: Check TWS for position changes
+3. **Test ES futures trading**:
+   - Buy: `curl -X POST http://localhost:8000/ML-3-4/buy`
+   - Sell: `curl -X POST http://localhost:8000/ML-2-3-4/sell`
+4. **Test SPX options trading**:
+   - Buy: `curl -X POST http://localhost:8000/option-buy`
+   - Sell: `curl -X POST http://localhost:8000/option-sell`
+5. **Test SPY stock trading**:
+   - Buy: `curl -X POST http://localhost:8000/stock-buy`
+   - Sell: `curl -X POST http://localhost:8000/stock-sell`
+6. **Verify positions**: Check TWS for position changes
 
 ## 🔒 Security Considerations
 
@@ -527,7 +650,29 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 - [ ] Run setup: `python quick_setup.py`
 - [ ] Start bot: `python run_bot.py`
 - [ ] Test connection: `curl http://localhost:8000/status`
-- [ ] Configure TradingView webhooks
+- [ ] Configure TradingView webhooks for all assets
+
+## 🔗 Webhook URLs Summary
+
+### Current Webhook URLs
+All webhook URLs are ready for TradingView integration:
+
+**ES Futures Trading:**
+- Buy: `https://e0e13c45218c.ngrok-free.app/ML-3-4/buy`
+- Sell: `https://e0e13c45218c.ngrok-free.app/ML-2-3-4/sell`
+
+**SPX Options Trading:**
+- Buy: `https://e0e13c45218c.ngrok-free.app/option-buy`
+- Sell: `https://e0e13c45218c.ngrok-free.app/option-sell`
+
+**SPY Stock Trading:**
+- Buy: `https://e0e13c45218c.ngrok-free.app/stock-buy`
+- Sell: `https://e0e13c45218c.ngrok-free.app/stock-sell`
+
+### Trading Behavior
+- **ES Futures**: Buys 3 contracts, closes all ES positions
+- **SPX Options**: Buys 1 SPXW 10 OCT 2025 CALL 6675 contract, closes all SPX option positions
+- **SPY Stock**: Buys 5 SPY shares, closes all SPY stock positions
 
 ## 🚀 Advanced Features
 
